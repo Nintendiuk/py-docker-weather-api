@@ -6,7 +6,7 @@ URL = "http://api.weatherapi.com/v1/current.json"
 CITY = "Paris"
 
 
-def get_weather():
+def get_weather() -> None:
     params = {
         "key": API_KEY,
         "q": CITY,
