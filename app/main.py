@@ -1,33 +1,32 @@
 import os
 import requests
 
+API_KEY = os.environ["API_KEY"]
+URL = "http://api.weatherapi.com/v1/current.json"
+CITY = "Paris"
 
-def get_weather() -> None:
-    api_key = os.environ.get("API_KEY")
-    url = "http://api.weatherapi.com/v1/current.json"
 
+def get_weather():
     params = {
-        "key": api_key,
-        "q": "Paris",
+        "key": API_KEY,
+        "q": CITY,
         "aqi": "no"
     }
 
-    response = requests.get(url, params=params)
+    response = requests.get(URL, params=params)
     response.raise_for_status()
 
     data = response.json()
-
     location = data["location"]
     current = data["current"]
 
     print(f"Location: {location['name']}, {location['country']}")
-    print(f"Temperature: {current['temp_c']}°C / {current['temp_f']}°F")
-    print(f"Feels like: {current['feelslike_c']}°C /"
-          f" {current['feelslike_f']}°F")
+    print(f"Temperature: {current['temp_c']}°C /"
+          f" {current['temp_f']}°F")
+    print(f"Feels like: {current['feelslike_c']}°C")
     print(f"Condition: {current['condition']['text']}")
     print(f"Humidity: {current['humidity']}%")
     print(f"Wind: {current['wind_kph']} kph {current['wind_dir']}")
-    print(f"Visibility: {current['vis_km']} km")
 
 
 if __name__ == "__main__":
